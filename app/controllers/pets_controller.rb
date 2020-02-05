@@ -6,11 +6,17 @@ class PetsController < ApplicationController
   end
 
   get '/pets/new' do 
+    @owners = Owner.all
     erb :'/pets/new'
   end
 
   post '/pets' do 
-
+    binding.pry
+    @pet = Pet.create(params[:pet])
+    # here - how to associate @pet to its owner?
+    if !params["owner"]["name"].empty?
+      @pet.owner = Owner.create(name: params["owner"]["name"])
+    end
     redirect to "pets/#{@pet.id}"
   end
 
