@@ -75,6 +75,7 @@ describe "Owners Controller" do
       expect(last_response.status).to eq(200)
     end
 
+
     it "'/owners/:id/edit' loads form to edit an owner and his pets" do
       visit "/owners/#{@owner.id}/edit"
       expect(page).to have_field('owner[name]')
