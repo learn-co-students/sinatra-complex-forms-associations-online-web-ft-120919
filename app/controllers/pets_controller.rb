@@ -1,4 +1,5 @@
 class PetsController < ApplicationController
+require 'pry'
 
   get '/pets' do
     @pets = Pet.all
@@ -33,8 +34,16 @@ class PetsController < ApplicationController
 
 
   patch '/pets/:id' do 
+    #binding.pry 
     @pet = Pet.find(params[:id])
-    @pet.update(name: params[:name])
+    @pet.update(name: params[:pet][:name])
+    @pet.update(owner_id: params[:pet][:owner_id])
+    if params[:owner][:name]  !=""
+       @pet.owner = Owner.create(name: params[:owner][:name])
+       @pet.save 
+    end 
+    
     redirect "/pets/#{@pet.id}"
+    
   end
 end 
